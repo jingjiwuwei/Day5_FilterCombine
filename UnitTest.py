@@ -53,7 +53,8 @@ class MyTest(unittest.TestCase):  # 继承unittest.TestCase
     组合功能模块测试用例 ：
     testcase6: 多个条件通过AND链接
     testcase7: 多个条件通过OR 链接
-    testcase8:  
+    testcase8: 多个条件通过And和or链接
+    testcase9:  
     """
     def test_and_multi(self):
         input1 = EqualCondition(Property.NAME.value, "'NSW'")
@@ -74,6 +75,25 @@ class MyTest(unittest.TestCase):  # 继承unittest.TestCase
         self.assertEqual(
             "SELECT * FROM info_table WHERE name='NSW' OR companyName='APPLE' OR title='ENGINEER' OR country='CHINA'",
             input.getExpression_sin())
+
+    def test_and_or_comb(self):
+        input1 = EqualCondition(Property.NAME.value, "'NSW'")
+        input2 = EqualCondition(Property.COMPANYNAME.value, "'APPLE'")
+        input3 = EqualCondition(Property.TITLE.value, "'ENGINEER'")
+        input4 = EqualCondition(Property.COUNTRY.value, "'CHINA'")
+        input = AndCondition(input1,input2)
+        input = OrCondition(input,input3)
+        input = AndCondition(input,input4)
+        self.assertEqual(
+            "SELECT * FROM info_table WHERE name='NSW' AND companyName='APPLE' OR title='ENGINEER' AND country='CHINA'",
+            input.getExpression_sin())
+
+
+    # def test_combine_multi_and(self):
+    #     input = ContainCondition.combine_and(Property.NAME.value, ["'NSW'","'QXC'"])
+    #     self.assertEqual(
+    #         "SELECT * FROM info_table WHERE name='NSW' AND companyName='APPLE' OR title='ENGINEER' AND country='CHINA'",
+    #         input.getExpression_sin())
 
 
 if __name__ == '__main__':
