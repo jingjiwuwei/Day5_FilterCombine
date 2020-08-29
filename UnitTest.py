@@ -75,9 +75,6 @@ class MyTest(unittest.TestCase):  # 继承unittest.TestCase
             "SELECT * FROM info_table WHERE name='NSW' OR companyName='APPLE' OR title='ENGINEER' OR country='CHINA'",
             input.getExpression_sin())
 
-    def test_comb_contain_and(self):
-        input = ContainCondition()
-        
 
 if __name__ == '__main__':
     unittest.main()  # 运行所有的测试用例
